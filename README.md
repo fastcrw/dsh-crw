@@ -49,6 +49,23 @@ dsh --profile default
 Get a key at [fastcrw.com](https://fastcrw.com). The free tier is a one-time 500
 credits and needs no card; one page is one credit.
 
+To install straight from this repo instead, pin a commit and allow the build.
+A git install fetches sources, so pnpm has to run this package's `prepare`
+script to produce `lib/`, and pnpm 10+ requires you to say so explicitly:
+
+```yaml
+# $DSH_HOME/profiles/<name>/pnpm-workspace.yaml
+allowBuilds:
+  dsh-crw: true
+```
+
+```sh
+dsh plugin --profile default add github:us/dsh-crw#<sha>
+```
+
+That allowance runs this package's build on your machine at install time, so
+pin the commit rather than tracking the branch.
+
 Verify the layer before booting:
 
 ```sh
