@@ -1,0 +1,35 @@
+# The dsh-crw bundle patch: point the web capability seam at fastCRW.
+#
+# Applied after @deepseek-ai/dsh-base, so rows here override base rows by id. A
+# patch replaces the targeted row's whole `config`, so each row below restates
+# every key it owns rather than merging into the base value.
+
+# Select fastCRW for both capabilities by id. The base layer still mounts the
+# in-box DeepSeek search provider, so switching search back is one line here;
+# an explicit id means selection never depends on plugin load order.
+- id: web
+  config:
+    searchProvider: crw
+    fetchProvider: crw
+
+# The base layer ships `fetch: false` and mounts no fetch provider at all: the
+# in-box HTTP provider defers SSRF protection, and the model chooses the request
+# target. fastCRW resolves and validates the target server-side and refuses
+# private, loopback and link-local destinations, so the harness process never
+# opens a connection the model picked. That is what makes enabling fetch here
+# safe, and it is why `fetch: true` belongs in THIS bundle and not upstream.
+#
+# The timeouts are raised from the 30s default because a page behind a JS or
+# anti-bot wall escalates through browser tiers before it answers.
+- id: tool-web
+  config:
+    search: true
+    fetch: true
+    searchTimeoutMs: 60000
+    fetchTimeoutMs: 90000
+
+- insert:
+    - id: crw
+      name: dsh-crw
+      config:
+        apiKey: !!js process.env.CRW_API_KEY
