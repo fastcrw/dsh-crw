@@ -60,7 +60,7 @@ allowBuilds:
 ```
 
 ```sh
-dsh plugin --profile default add github:us/dsh-crw#<sha>
+dsh plugin --profile default add github:fastcrw/dsh-crw#<sha>
 ```
 
 That allowance runs this package's build on your machine at install time, so

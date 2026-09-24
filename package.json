@@ -10,10 +10,10 @@
     "scraping",
     "fastcrw"
   ],
-  "homepage": "https://github.com/us/dsh-crw",
+  "homepage": "https://github.com/fastcrw/dsh-crw",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/us/dsh-crw.git"
+    "url": "git+https://github.com/fastcrw/dsh-crw.git"
   },
   "license": "MIT",
   "author": "Recep Ahmet Saritekin",
